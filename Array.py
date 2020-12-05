@@ -29,8 +29,27 @@ class Array:
                 maximum = self.array[i]
         return f"max number is {maximum}"
 
-    def insert_at(self, item):
-        pass
+    def insert_at(self, index, item):
+        if 0 > index or index >= self.len:
+            raise ValueError('index out of range')
+        else:
+            new_list = []
+            if self.len < self.size:
+                for i in self.array[:index]:
+                    new_list.append(i)
+                new_list.append(item)
+                for j in self.array[index:]:
+                    new_list.append(j)
+                self.array = new_list
+            else:
+                print('array is full')
+                new_array = Array(self.len + 1)
+                for i in self.array[:index]:
+                    new_array.array.append(i)
+                new_array.array.append(item)
+                for j in self.array[index:]:
+                    new_array.array.append(j)
+                self.array = new_array.array
 
     def reverse(self):
         reversed_array = []
@@ -66,10 +85,6 @@ class Array:
 array = Array(3)
 array.insert(10)
 array.insert(20)
-array.insert(30)
 array.insert(40)
-array.insert(50)
-array.remove_at(2)
-print(array.max())
-print(array.reverse())
+array.insert_at(2, 30)
 array.print()
