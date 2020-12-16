@@ -7,6 +7,7 @@ class LinkedList:
     def __init__(self):
         self.start = None
         self.last = None
+        self.length = 0
 
     def isnone(self):
         if self.start is None:
@@ -20,6 +21,8 @@ class LinkedList:
             node.next = self.start
             self.start = node
 
+        self.length += 1
+
     def add_last(self, value):
         node = LinkedList.Node(value)
         if self.isnone():
@@ -28,6 +31,8 @@ class LinkedList:
         else:
             self.last.next = node
             self.last = node
+
+        self.length += 1
 
     def index_of(self, value):
         node = LinkedList.Node(value)
@@ -54,6 +59,8 @@ class LinkedList:
         else:
             self.start = self.start.next
 
+        self.length -= 1
+
     def remove_last(self):
         if self.isnone():
             raise ValueError('LinkedList is Empty')
@@ -66,15 +73,10 @@ class LinkedList:
             temp.next = None
             self.last = temp
 
-    def length(self):
-        if self.isnone():
-            raise ValueError('LinkedList is Empty')
-        size = 1
-        temp = self.start
-        while temp != self.last:
-            temp = temp.next
-            size += 1
-        return size
+        self.length -= 1
+
+    def size(self):
+        return self.length
 
     def __str__(self):
         if self.isnone():
@@ -94,5 +96,5 @@ l.add_last(40)
 l.add_first(50)
 l.remove_first()
 l.remove_last()
-print(l.length())
+print(l.size())
 print(l)
